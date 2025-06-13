@@ -19,8 +19,8 @@ def main_loop():
         #     handle_remove(args)
         # elif cmd == "list":
         #     handle_list(args)
-        # elif cmd == "stats":
-        #     handle_stats()
+        elif cmd == "stats":
+            handle_stats()
         # elif cmd == "get":
         #     handle_get(args)
         # elif cmd == "done":
@@ -53,6 +53,11 @@ def main_loop():
             return
         tasks[task_id] = {"text": text, "done": False}
         print(f"Task [{task_id}] added: {text}")
+    def handle_stats():
+        if not tasks:
+            print("Error: no tasks")
+            return
+        print(tasks)
 
     while True: 
         print("Enter command: ")
