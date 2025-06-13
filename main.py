@@ -13,8 +13,8 @@ def main_loop():
         args = parts[1:]
         if cmd == "add":
             handle_add(args)
-        # elif cmd == "update":
-        #     handle_update(args)
+        elif cmd == "update":
+            handle_update(args)
         elif cmd == "remove":
             handle_remove(args)
         elif cmd == "stats":
@@ -98,11 +98,41 @@ def main_loop():
         del tasks[task_id]
         print(f"Task [{task_id}] successfuly removed! ✓")
 
+
+    def handle_update(args):
+        if not args:
+            print("Error: no task ID provided")
+            return
+        try:
+            task_id=int(args[0])
+        except ValueError:
+            print("Error: task ID must be an integer value")
+            return
+        if task_id not in tasks:
+            print(f"Error: no task with ID {task_id}")
+            return
+        if len(args) < 2:
+            print("Error: no new text provided")
+            return
+        new_text = " ".join(args[1:]).strip()
+        if not new_text:
+            print("Error: new text is empty")
+            return
+        tasks[task_id]["text"] = new_text
+        print(f"Task [{task_id}] updated: {new_text}")
+
+
+            
+        
+    
+
     while True: 
         print("help -> see all commands")
         print("Enter command: ")
         command = input("> ")
         if parse_command(command):
             break
+
+
 main_loop()
 
